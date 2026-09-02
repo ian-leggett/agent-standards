@@ -15,6 +15,7 @@
 
 - Python: `conventions/python.md`
 - Django: `conventions/django.md`
+- Django REST Framework: `conventions/drf.md`
 - JavaScript: `conventions/javascript.md`
 - TypeScript: `conventions/typescript.md`
 - React: `conventions/react.md`
