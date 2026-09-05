@@ -28,13 +28,16 @@ Then work through the checklist below before your first commit.
    real, project-specific content. Delete a section's placeholder comment
    once it's filled in; an empty section is fine, an unfilled comment isn't.
 2. **Delete the conventions you don't need.** This template ships with Python,
-   Django, JavaScript, TypeScript, React, and Next.js docs under `conventions/`.
-   If your project is a Python API with no frontend, delete `javascript.md`,
-   `typescript.md`, `react.md`, `nextjs.md` — and remove their rows from the
+   Django, Django REST Framework, JavaScript, TypeScript, React, and Next.js
+   docs under `conventions/`. If your project is a Python API with no
+   frontend, delete `javascript.md`, `typescript.md`, `react.md`,
+   `nextjs.md` — and remove their rows from the
    `## Conventions for languages & frameworks` table in `AGENTS.md`.
-3. **Delete the matching `.claude/rules/*.md` files** for anything you removed
+3. **Delete the matching `.claude/rules/*.md` and
+   `.github/instructions/*.instructions.md` files** for anything you removed
    in step 2 — an orphaned rule pointing at a deleted convention file will
-   error when Claude Code tries to load it.
+   error when Claude Code tries to load it, and a dangling Copilot
+   instructions file just wastes context.
 4. **Adjust the conventions you keep.** These are opinionated defaults (ruff
    for Python, Conventional Commits for git, etc.) — edit them to match how
    your team actually works before treating them as settled.
@@ -46,10 +49,12 @@ Then work through the checklist below before your first commit.
 ## The three layers
 
 ```
-AGENTS.md              ← Layer 1: always loaded, every session. Keep this under ~50 lines.
-conventions/*.md        ← Layer 2: full standards docs, loaded on demand (by reference or rule).
-.claude/rules/*.md      ← Layer 3 (Claude Code only): auto-loads a Layer 2 doc, but ONLY
-                           when Claude actually touches a matching file (paths: frontmatter).
+AGENTS.md                               ← Layer 1: always loaded, every session. Keep this under ~50 lines.
+conventions/*.md                        ← Layer 2: full standards docs, loaded on demand (by reference or rule).
+.claude/rules/*.md                      ← Layer 3 (Claude Code): auto-loads a Layer 2 doc, but ONLY
+                                           when Claude actually touches a matching file (paths: frontmatter).
+.github/instructions/*.instructions.md  ← Layer 3 (Copilot): the same idea via Copilot's
+                                           own path-scoping (applyTo: frontmatter).
 ```
 
 This mirrors how Claude's own Agent Skills work (name+description always visible,
@@ -59,6 +64,15 @@ loaded at launch (they just help you organize one big file into several — they
 **not** save context), while `.claude/rules/` files with `paths:` frontmatter are
 the mechanism that actually defers loading until it's needed. Layer 3 exists
 because that distinction matters and most teams miss it.
+
+GitHub Copilot gets the same treatment via its own native mechanism:
+`.github/copilot-instructions.md` is a one-line `@../AGENTS.md` import (Copilot's
+equivalent of `CLAUDE.md`), and `.github/instructions/*.instructions.md` files
+each `@import` one `conventions/*.md` doc with an `applyTo:` glob — the direct
+analogue of a Claude Code rule's `paths:` frontmatter. Add both a
+`.claude/rules/<stack>.md` and a `.github/instructions/<stack>.instructions.md`
+when you add a new stack, so both tools get scoped loading instead of one of
+them falling back to reading the whole convention doc every session.
 
 Why not put everything in one AGENTS.md? Two independent numbers cap it:
 - Frontier models hold ~150–200 *instructions* reliably before adherence drops.
@@ -78,21 +92,35 @@ agent-standards/
 ├── conventions/                # Layer 2: one file per stack, plus process docs
 │   ├── python.md
 │   ├── django.md
+│   ├── drf.md                  # Django REST Framework — assumes django.md too
 │   ├── javascript.md
 │   ├── typescript.md
 │   ├── react.md
 │   ├── nextjs.md
 │   └── git.md                  # Commit/branch/PR conventions — stack-agnostic
 ├── skills/                      # Empty on purpose — see skills/README.md
-└── .claude/
-    ├── rules/                   # Layer 3: path-scoped auto-loaders for conventions/
-    │   ├── python.md
-    │   ├── django.md
-    │   ├── javascript.md
-    │   ├── typescript.md
-    │   ├── react.md
-    │   └── nextjs.md
-    └── settings.json            # Baseline deny rules for secrets/credentials
+├── .claude/
+│   ├── rules/                   # Layer 3: path-scoped auto-loaders for conventions/
+│   │   ├── python.md
+│   │   ├── django.md
+│   │   ├── drf.md
+│   │   ├── javascript.md
+│   │   ├── typescript.md
+│   │   ├── react.md
+│   │   └── nextjs.md
+│   └── settings.json            # Baseline deny rules for secrets/credentials
+└── .github/
+    ├── copilot-instructions.md  # Bridges to AGENTS.md, Copilot's version of CLAUDE.md
+    ├── instructions/             # Layer 3 for Copilot: applyTo-scoped auto-loaders
+    │   ├── python.instructions.md
+    │   ├── django.instructions.md
+    │   ├── drf.instructions.md
+    │   ├── javascript.instructions.md
+    │   ├── typescript.instructions.md
+    │   ├── react.instructions.md
+    │   ├── nextjs.instructions.md
+    │   └── git.instructions.md
+    └── pull_request_template.md # PR checklist wired to conventions/git.md's commit types
 ```
 
 ## How `AGENTS.md` and `CLAUDE.md` relate
@@ -126,8 +154,18 @@ works instead of the `@import`: `ln -s AGENTS.md CLAUDE.md`.
    @../conventions/ruby.md
    ```
 
-That's it — Claude Code now loads `ruby.md` automatically the first time you
-touch a `.rb` file, and every other tool still gets it via the `AGENTS.md` row.
+4. Add the Copilot equivalent, `.github/instructions/<stack>.instructions.md`:
+
+   ```markdown
+   ---
+   applyTo: "**/*.rb"
+   ---
+   @../../conventions/ruby.md
+   ```
+
+That's it — Claude Code and Copilot now both load `ruby.md` automatically the
+first time you touch a `.rb` file, and every other AGENTS.md-aware tool still
+gets it via the `AGENTS.md` row.
 
 ## Sharing standards across many repos instead
 
