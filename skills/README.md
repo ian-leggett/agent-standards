@@ -14,3 +14,9 @@ submodule for free.
 
 Not filled in yet — add skills here as you notice agents repeating the same
 multi-step task across projects.
+
+## Recommended external skills
+
+[Matt Pocock's skills](https://github.com/mattpocock/skills) are recommended
+as a starting point — worth reviewing before writing a new skill from scratch
+in case one already covers the workflow.
