@@ -47,5 +47,20 @@
       "Bash(cat .env.test.local)",
       "Bash(cat .env.ci)"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/post-tool-format.sh\"",
+            "timeout": 30,
+            "statusMessage": "Formatting changed file..."
+          }
+        ]
+      }
+    ]
   }
 }

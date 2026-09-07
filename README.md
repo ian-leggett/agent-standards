@@ -97,7 +97,8 @@ agent-standards/
 │   ├── typescript.md
 │   ├── react.md
 │   ├── nextjs.md
-│   └── git.md                  # Commit/branch/PR conventions — stack-agnostic
+│   ├── git.md                  # Commit/branch/PR conventions — stack-agnostic
+│   └── accessibility.md        # Cross-stack a11y conventions
 ├── skills/                      # Empty on purpose — see skills/README.md
 ├── .claude/
 │   ├── rules/                   # Layer 3: path-scoped auto-loaders for conventions/
@@ -108,7 +109,10 @@ agent-standards/
 │   │   ├── typescript.md
 │   │   ├── react.md
 │   │   └── nextjs.md
-│   └── settings.json            # Baseline deny rules for secrets/credentials
+│   ├── hooks/
+│   │   └── post-tool-format.sh  # Placeholder PostToolUse hook — see below
+│   └── settings.json            # Baseline deny rules for secrets/credentials,
+│                                 # wires the PostToolUse hook above
 └── .github/
     ├── copilot-instructions.md  # Bridges to AGENTS.md, Copilot's version of CLAUDE.md
     ├── instructions/             # Layer 3 for Copilot: applyTo-scoped auto-loaders
@@ -120,8 +124,23 @@ agent-standards/
     │   ├── react.instructions.md
     │   ├── nextjs.instructions.md
     │   └── git.instructions.md
+    ├── hooks/
+    │   ├── post-tool-format.sh  # Same placeholder, Copilot agent mode's own copy
+    │   └── formatting.json      # Wires the hook above for Copilot
     └── pull_request_template.md # PR checklist wired to conventions/git.md's commit types
 ```
+
+## Hooks
+
+`.claude/hooks/post-tool-format.sh` and `.github/hooks/post-tool-format.sh` are
+each wired to fire on every file write/edit (via `.claude/settings.json`'s
+`PostToolUse` hook and `.github/hooks/formatting.json`, respectively). Both are
+intentionally kept as no-op, placeholders — this template has no
+single toolchain installed, so there's nothing real to run. Once you've pruned
+`conventions/` down to your actual stack, replace the placeholder body with the
+formatter/linter that convention names (e.g. `ruff format`, `eslint --fix`).
+The two scripts are separate on purpose, so either agent's hook can be edited
+or removed independently.
 
 ## How `AGENTS.md` and `CLAUDE.md` relate
 

@@ -21,6 +21,7 @@
 - React: `conventions/react.md`
 - Next.js: `conventions/nextjs.md`
 - Git: `conventions/git.md`
+- Accessibility: `conventions/accessibility.md`
 
 ## Process
 
