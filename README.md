@@ -1,12 +1,17 @@
 # Agent standards
 
 A starter template for AI agent documentation. Use it as the seed for a new
-project's `AGENTS.md`, coding standards, and Claude Code configuration — clone
-it, trim it down to the stacks you actually use, and start building.
+project's `AGENTS.md`, coding standards, and configuration for Claude Code and
+GitHub Copilot — clone it, trim it down to the stacks you actually use, and
+start building.
 
 It's built around **progressive disclosure**: every layer only enters an
 agent's context when it's actually relevant, so a project's always-on
 instructions stay small no matter how many stacks it ends up covering.
+
+## Guides
+
+- [What is an AGENTS.md file?](./docs/agents-md.md)
 
 
 ## Sources / further reading
