@@ -24,6 +24,16 @@ combines them rather than letting one silently win, though the docs note
 personal takes precedence over repository, which takes precedence over
 organization if they genuinely conflict.
 
+Copilot also has a separate, non-instruction hierarchy for
+[content exclusion](https://docs.github.com/en/copilot/how-tos/configure-content-exclusion/exclude-content-from-copilot)
+— path patterns (fnmatch-style, e.g. `secret*`, `/scripts/**`) that Copilot
+is blocked from reading as context at all. It stacks at repository,
+organization, and enterprise level (enterprise rules apply to every seat;
+organization rules apply only to seats that org assigns), and it's the
+closest Copilot equivalent to Claude Code's `permissions.deny` secret-file
+guardrails below. One gap worth knowing: it doesn't cover agent mode in
+Copilot Chat in IDEs.
+
 ## Claude Code
 
 | Level | Set where | Holds |
@@ -56,6 +66,7 @@ device management.
 | Project conventions | `.github/copilot-instructions.md` + `.github/instructions/*.instructions.md` | `AGENTS.md` / `CLAUDE.md` + `.claude/settings.json` |
 | Personal overrides | Personal Copilot settings (GitHub.com) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
 | Personal, per-project overrides | — (no equivalent) | `.claude/settings.local.json` |
+| Secret/path exclusion from context | [Content exclusion](https://docs.github.com/en/copilot/how-tos/configure-content-exclusion/exclude-content-from-copilot) (repo/org/enterprise, fnmatch paths) | `"permissions.deny"` in `.claude/settings.json` (or managed settings) |
 
 ## What to put where
 
@@ -91,5 +102,6 @@ when deciding whether a rule belongs here or one level up.
 
 - [GitHub Docs — Adding organization custom instructions for Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-organization-instructions)
 - [GitHub Docs — Adding repository custom instructions for Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+- [GitHub Docs — Excluding content from Copilot](https://docs.github.com/en/copilot/how-tos/configure-content-exclusion/exclude-content-from-copilot)
 - [Claude Code — Settings precedence](https://code.claude.com/docs/en/settings)
 - [Claude Code — Managed settings (deployment, delivery mechanisms)](https://code.claude.com/docs/en/managed-settings)
