@@ -1,10 +1,11 @@
 {
+  "version": 1,
   "hooks": {
-    "PostToolUse": [
+    "postToolUse": [
       {
         "type": "command",
-        "command": "bash .github/hooks/post-tool-format.sh",
-        "timeout": 30
+        "bash": ".github/hooks/post-tool-format.sh",
+        "timeoutSec": 30
       }
     ]
   }

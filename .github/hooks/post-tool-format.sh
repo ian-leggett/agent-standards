@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# PostToolUse hook (GitHub Copilot agent mode, VS Code): format/lint
-# whatever file the agent just wrote or edited.
+# postToolUse hook (GitHub Copilot agent): format/lint whatever file the
+# agent just wrote or edited.
 #
 # This is kept as a SEPARATE, native config from the Claude Code hook at
 # .claude/hooks/post-tool-format.sh -- this repo treats each agent's
@@ -14,8 +14,9 @@
 # actual formatter/linter logic here (e.g. ruff, eslint, prettier,
 # biome — whichever conventions/*.md names for the file type at hand).
 #
-# Never blocks the tool call -- always reports continue.
+# Receives the hook's JSON payload on stdin. For postToolUse, a non-zero
+# exit is only logged (the tool already ran, so there's nothing left to
+# block) -- unlike preToolUse, there's no stdout contract to honor here.
 
 echo "post-tool-format hook ran"
-echo '{"continue":true}'
 exit 0

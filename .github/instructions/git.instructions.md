@@ -1,4 +1,0 @@
----
-applyTo: "**"
----
-@../../conventions/git.md

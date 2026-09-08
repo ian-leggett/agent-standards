@@ -5,6 +5,9 @@ paths:
   - "**/admin.py"
   - "**/serializers.py"
   - "**/urls.py"
+  - "**/apps.py"
+  - "**/managers.py"
+  - "**/forms.py"
   - "**/migrations/*.py"
   - "manage.py"
 ---

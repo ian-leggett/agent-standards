@@ -1,4 +1,4 @@
 ---
-applyTo: "**/serializers.py,**/views.py,**/viewsets.py,**/routers.py,**/permissions.py"
+applyTo: "**/serializers.py,**/views.py,**/viewsets.py,**/permissions.py,**/pagination.py,**/filters.py,**/routers.py,**/urls.py"
 ---
 @../../conventions/drf.md
