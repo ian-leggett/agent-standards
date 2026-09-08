@@ -11,7 +11,9 @@ instructions stay small no matter how many stacks it ends up covering.
 
 ## Guides
 
+- [Managing the context window](./docs/context-window.md)
 - [What is an AGENTS.md file?](./docs/agents-md.md)
+
 
 
 ## Sources / further reading
