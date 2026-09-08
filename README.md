@@ -11,8 +11,8 @@ instructions stay small no matter how many stacks it ends up covering.
 
 ## 📚 Guides
 
-- [Folder structure: .claude/ vs .github/](./docs/folder-structure.md)
 - [Config hierarchy: enterprise, org, project, and local](./docs/config-hierarchy.md)
+- [Folder structure: .claude/ vs .github/](./docs/folder-structure.md)
 - [Managing the context window](./docs/context-window.md)
 - [What is an AGENTS.md file?](./docs/agents-md.md)
 - [Skills: how and when to use one](./docs/agent-skills.md)
