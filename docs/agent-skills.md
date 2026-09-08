@@ -1,4 +1,4 @@
-# Agent Skills: what they are and when to use them
+# 🧩 Agent Skills: what they are and when to use them
 
 A Skill is a packaged set of instructions for a specific, recurring task —
 a checklist, a workflow, a domain procedure — that an agent loads only when

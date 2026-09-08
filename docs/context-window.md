@@ -1,4 +1,4 @@
-# Managing the context window
+# 🧠 Managing the context window
 
 An agent's context window is the working memory it has for the *entire*
 task: your instructions, `AGENTS.md`/`CLAUDE.md`, every file it reads, every

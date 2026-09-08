@@ -1,4 +1,4 @@
-# Hooks: how and when to use them
+# 🪝 Hooks: how and when to use them
 
 A hook is a shell command the harness runs deterministically at a defined
 lifecycle event (before a tool runs, after a tool runs, on user input, on

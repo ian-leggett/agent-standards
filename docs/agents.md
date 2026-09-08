@@ -1,4 +1,4 @@
-# Creating an agent: how and when to use one
+# 🤖 Creating an agent: how and when to use one
 
 A subagent is a separate context window with its own system prompt and its
 own (often narrower) tool access, dispatched by a main agent to do one job

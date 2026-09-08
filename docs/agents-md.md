@@ -1,4 +1,4 @@
-# What is an AGENTS.md file?
+# 📄 What is an AGENTS.md file?
 
 `AGENTS.md` is an open, tool-agnostic convention for giving AI coding
 assistants the context they need to work in your repository: how to build and
