@@ -13,6 +13,8 @@ instructions stay small no matter how many stacks it ends up covering.
 
 - [Managing the context window](./docs/context-window.md)
 - [What is an AGENTS.md file?](./docs/agents-md.md)
+- [Agent Skills: what they are and when to use them](./docs/agent-skills.md)
+- [Creating an agent: how and when to use one](./docs/agents.md)
 
 
 

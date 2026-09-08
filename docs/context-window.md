@@ -54,6 +54,35 @@ not just under the hard limit. "Fits" is not the same as "efficient."
   range) over ones that return everything and rely on the agent to ignore
   the rest.
 
+## Skills and MCP servers change the baseline
+
+Skills and MCP servers aren't free just because they're not files you opened
+yourself — both add to the context window before the agent does anything
+useful.
+
+- **MCP tool definitions load up front.** Every connected MCP server
+  registers its tool schemas (names, descriptions, parameters) into context
+  at session start, whether or not any of those tools get called. A handful
+  of MCP servers can add up to a meaningful chunk of the window before the
+  first user turn — connect only the servers a given task actually needs, not
+  every one available.
+- **Verbose tool results compound the cost.** An MCP tool that returns a full
+  API payload (a whole Jira issue, a whole page tree) instead of the fields
+  actually needed pushes the same "irrelevant content is noise, not just
+  weight" problem from raw file reads into every call — see [How to use
+  tokens efficiently](#how-to-use-tokens-efficiently).
+- **Skills are metadata-cheap, body-expensive.** A skill's name and one-line
+  description sit in context so the agent can decide whether it's relevant,
+  but that's a small, fixed cost across many skills. The skill's actual
+  instructions only load when it's invoked — so a repo can define many
+  skills without taxing every conversation, as long as each skill's body
+  stays focused on the task it covers rather than growing into a catch-all.
+- **Prefer fewer, targeted connections over broad ones.** A narrowly-scoped
+  MCP server or skill is easier for the agent to reason about and cheaper to
+  keep connected than a broad one where most of the surface area is unused
+  in any given task — the same progressive-disclosure principle that governs
+  `AGENTS.md`/`CLAUDE.md` applies to tool and skill surface area.
+
 ## The rule of thumb
 
 Every token in the context window should be there because the current step
