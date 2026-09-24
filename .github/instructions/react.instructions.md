@@ -1,4 +1,4 @@
 ---
-applyTo: "**/*.tsx, **/*.jsx"
+applyTo: "**/*.tsx,**/*.jsx"
 ---
-@../../conventions/react.md
+Follow the [React conventions](../../conventions/react.md).

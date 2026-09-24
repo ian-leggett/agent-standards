@@ -1,4 +1,4 @@
 ---
-applyTo: "**/*.ts, **/*.tsx"
+applyTo: "**/*.ts,**/*.tsx"
 ---
-@../../conventions/typescript.md
+Follow the [TypeScript conventions](../../conventions/typescript.md).
