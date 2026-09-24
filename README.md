@@ -52,7 +52,7 @@ Specialised AI personas you invoke in Copilot and Claude. Each agent has a defin
 Reusable procedures that load on demand when a task matches, following the open Agent Skills standard.
 
 - [Write tests skill](.claude/skills/write-tests/SKILL.md) - writes tests that follow the testing conventions
-- [PR description skill](.claude/skills/pr-description/SKILL.md) - drafts a PR title and description from the branch diff
+- [Create PR skill](.claude/skills/create-pr/SKILL.md) - drafts a PR title and description from the branch diff, then opens the PR after confirmation
 
 ### [Config hierarchy](docs/config-hierarchy.md)
 
