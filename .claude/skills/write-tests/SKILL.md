@@ -23,8 +23,8 @@ conventions and fail when the behaviour is broken.
 
 1. Find the change: run `git diff main...HEAD` and `git status`. List the
    behaviours that were added or changed.
-2. Read `conventions/testing.md`, then the file for the language, for example
-   `conventions/python.md` or `conventions/typescript.md`.
+2. Read `conventions/testing.md`, then the convention file for the language and
+   framework under test.
 3. Find the nearest existing tests and copy their runner, layout, naming and
    fixtures. Don't introduce a new pattern.
 4. For a bug fix, write the reproducing test first and confirm it fails for the
@@ -39,7 +39,7 @@ conventions and fail when the behaviour is broken.
 ## Rules
 
 - Test behaviour through the public interface, not internals.
-- Assert specific values. No `is not None`, `toBeTruthy()` or `status < 500`.
+- Assert specific values, not just that something exists or is truthy.
 - Hardcode expected values. No logic or loops in a test body.
 - Mock only at the boundary (network, filesystem, clock).
 - Use obviously fake data. Never copy production data or real credentials.
@@ -49,8 +49,7 @@ conventions and fail when the behaviour is broken.
 
 - `conventions/testing.md`
 - `conventions/security.md` (negative-path tests)
-- `conventions/python.md`, `conventions/django.md`, `conventions/drf.md`
-- `conventions/javascript.md`, `conventions/typescript.md`, `conventions/react.md`
+- The convention file(s) for the language and framework under test
 
 ## Out of scope
 
