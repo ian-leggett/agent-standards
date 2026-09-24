@@ -37,14 +37,17 @@ don't add new routes under `pages/` unless the repo hasn't migrated yet.
   on a single global fallback for a route that has meaningfully different failure states.
 - `loading.tsx` + `<Suspense>` boundaries around slow child fetches, not a single top-level
   spinner that blocks the whole page.
+- In Next.js 16, `middleware.ts` is renamed `proxy.ts` (exported function `proxy`, Node.js runtime).
+  Use `proxy.ts` in new code; keep `middleware.ts` only on 15 or where the edge runtime is needed.
 - Route Handlers (`route.ts`) are for things a page can't be — webhooks, non-HTML responses,
   third-party callbacks. Don't build a JSON API in `route.ts` for data your own Server Components
   could fetch directly.
 
 ## Data fetching & caching
-- Default `fetch()` caching is `force-cache` (static). Use `cache: 'no-store'` for genuinely
-  per-request data, and `next: { revalidate: <seconds> }` for time-based ISR — pick deliberately,
-  don't leave the default un-examined for data that actually changes per request.
+- Since Next.js 15, `fetch()` is not cached by default. Opt in with `cache: 'force-cache'`, or
+  `next: { revalidate: <seconds> }` for time-based ISR. Use `cache: 'no-store'` for data that must
+  be fetched on every request even where no request-time API is detected — pick deliberately,
+  don't leave the default un-examined.
 - For non-`fetch` data sources (ORM/DB calls), wrap the function with the `'use cache'` directive
   plus `cacheLife()`/`cacheTag()` rather than hand-rolling memoization.
 - Invalidate with `revalidatePath()`/`revalidateTag()` from the Server Action or route that

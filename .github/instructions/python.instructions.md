@@ -1,4 +1,4 @@
 ---
 applyTo: "**/*.py"
 ---
-@../../conventions/python.md
+Follow the [Python conventions](../../conventions/python.md).

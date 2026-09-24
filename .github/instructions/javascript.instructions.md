@@ -1,4 +1,4 @@
 ---
 applyTo: "**/*.js,**/*.jsx,**/*.mjs,**/*.cjs"
 ---
-@../../conventions/javascript.md
+Follow the [JavaScript conventions](../../conventions/javascript.md).

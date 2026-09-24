@@ -38,7 +38,7 @@ Copilot Chat in IDEs.
 
 | Level | Set where | Holds |
 |-------|-----------|-------|
-| **Managed / enterprise** | `managed-settings.json`, MDM/OS policy, or server-managed settings pushed from the claude.ai admin console | JSON settings only — permissions, hooks, allowed models, env vars. **Not** freeform instruction text. |
+| **Managed / enterprise** | `managed-settings.json`, MDM/OS policy, or server-managed settings pushed from the claude.ai admin console | Managed settings are JSON: permissions, hooks, allowed models, env vars. A separate managed policy `CLAUDE.md` carries freeform, organization-wide instructions. |
 | **Project (shared)** | `.claude/settings.json` for settings, `CLAUDE.md`/`AGENTS.md` at repo root for instructions | Team-shared, checked into version control — this is where this repo's own `AGENTS.md` and `conventions/*.md` live |
 | **Project (local)** | `.claude/settings.local.json` | Personal, per-project overrides — gitignored, not shared with the team |
 | **User (global)** | `~/.claude/settings.json` for settings, `~/.claude/CLAUDE.md` for instructions | Applies across every project on your machine |
@@ -49,20 +49,20 @@ generally can't be overridden by anything lower, with a short list of
 security-sensitive exceptions where Claude Code honors whichever value is
 *stricter*, regardless of level.
 
-**There's no native "organization" instructions tier.** Managed settings
-are JSON policy (what's allowed/denied), not a place to write standing
-prose instructions the way Copilot's organization custom instructions are.
-If you want org-wide guidance for Claude Code, you distribute it by
-convention instead — e.g. sync a shared snippet into every repo's
-`AGENTS.md`, or provision `~/.claude/CLAUDE.md` onto every machine via
-device management.
+**Organization-wide instructions use a managed policy `CLAUDE.md`.** IT
+deploys it to a fixed system path — macOS
+`/Library/Application Support/ClaudeCode/CLAUDE.md`, Linux and WSL
+`/etc/claude-code/CLAUDE.md`, Windows `C:\Program Files\ClaudeCode\CLAUDE.md`.
+It applies to every user on the machine, and `claudeMdExcludes` can't exclude
+it. It is context Claude reads, not enforcement, so keep hard rules in managed
+settings.
 
 ## Side by side
 
 | Concept | Copilot | Claude Code |
 |---------|---------|--------------|
 | Hard policy (feature/model allow-deny) | Enterprise admin console | Managed settings (`managed-settings.json` / MDM / admin console) |
-| Org-wide standing instructions | Organization custom instructions (native, freeform) | No native tier — distribute by convention (shared `AGENTS.md` snippet, provisioned `~/.claude/CLAUDE.md`) |
+| Org-wide standing instructions | Organization custom instructions (native, freeform) | Managed policy `CLAUDE.md` (deployed by IT to a system path, applies to all users) |
 | Project conventions | `.github/copilot-instructions.md` + `.github/instructions/*.instructions.md` | `AGENTS.md` / `CLAUDE.md` + `.claude/settings.json` |
 | Personal overrides | Personal Copilot settings (GitHub.com) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
 | Personal, per-project overrides | — (no equivalent) | `.claude/settings.local.json` |
@@ -78,14 +78,12 @@ device management.
   convention, not an enforcement mechanism.
 - **Org-wide culture and style** (house coding style, universal security
   requirements) fits Copilot's organization instructions natively. For
-  Claude Code, treat this the same way this repo treats language
-  conventions — write it once somewhere shared and pull it in, rather than
-  duplicating it per repo.
+  Claude Code, use the managed policy `CLAUDE.md`.
 - **Project conventions** — the bulk of what this repo covers — belong at
   the project tier for both tools: `AGENTS.md`/`conventions/*.md`, mirrored
   into `.github/copilot-instructions.md` and `CLAUDE.md`. See
-  [Folder structure: .claude/ vs .github/](./folder-structure.md) and
-  [What is an AGENTS.md file?](./agents-md.md).
+  [Getting started](./getting-started.md#recommended-directory-structure) and
+  [Instructions](./instructions.md).
 - **Personal preferences** (verbosity, individual workflow habits) belong
   in the local/personal tier only — `.claude/settings.local.json` or
   Copilot's personal instructions — never checked in, never imposed on

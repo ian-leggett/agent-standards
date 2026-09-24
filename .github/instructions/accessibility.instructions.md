@@ -1,4 +1,4 @@
 ---
 applyTo: "**/*.tsx,**/*.jsx,**/*.html,**/*.vue"
 ---
-@../../conventions/accessibility.md
+Follow the [Accessibility conventions](../../conventions/accessibility.md).

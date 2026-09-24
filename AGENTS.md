@@ -2,7 +2,7 @@
 
 This is an example `AGENTS.md` file — the root instructions that are always active for every Copilot/Claude interaction in your repository.
 
-```mardown
+```markdown
 # Project overview
 
 <!-- Edit this section for your service -->
