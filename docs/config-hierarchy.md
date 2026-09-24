@@ -1,4 +1,4 @@
-# 🏛️ Config hierarchy: enterprise, org, project, and local
+# Config hierarchy: enterprise, org, project, and local
 
 Both Claude Code and GitHub Copilot let instructions and settings live at
 more than one scope — but the two tools don't split those scopes the same

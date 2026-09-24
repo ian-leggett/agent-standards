@@ -1,4 +1,4 @@
-# 🚫 Content exclusion: keeping files away from the agent
+# Content exclusion: keeping files away from the agent
 
 Some files should never reach an AI tool's context: secrets, credentials,
 customer data, generated output, vendored code. Both GitHub Copilot and Claude
