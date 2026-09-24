@@ -124,11 +124,12 @@ managed list but not remove from it. See [Config hierarchy](./config-hierarchy.m
 
 ### Limitations
 
-- **`Read` rules cover Claude's built-in file tools, not shell commands.** A
-  `Read(**/.env)` rule blocks the Read tool, but `cat .env` run through the
-  Bash tool is a different code path. Close that gap with the sandbox (below)
-  and/or `Bash(cat .env*)`-style deny rules. Bash patterns are easy to
-  work around, so don't rely on them alone.
+- **Bash coverage is partial.** `Read` deny rules apply to Claude's built-in
+  file tools, to the file commands Claude Code recognises in Bash (`cat`,
+  `head`, `tail`, `sed`, `tee`), and to redirect targets such as `< .env`. They
+  don't apply to a command that reads files without naming them, such as
+  `grep -r pattern .` run from the directory that holds the file. Close that
+  gap with the sandbox (below).
 - **Search tools are best-effort.** Grep and Glob honour Read deny rules on a
   best-effort basis. Test that a denied file's contents don't appear in search
   results.
@@ -158,8 +159,8 @@ from Bash. Use it together with `permissions.deny`, not instead of it.
 | Enforced by | GitHub service | Claude Code client |
 | Org/enterprise policy | Yes, native | Yes, via managed settings |
 | Pattern syntax | fnmatch | gitignore-style, per tool (`Read(...)`) |
-| Blocks shell access | n/a | Only with sandbox |
-| Known gaps | Agent mode in IDEs, CLI, cloud agent | Bash and child processes without sandbox |
+| Blocks shell access | n/a | Recognised file commands only; full coverage needs the sandbox |
+| Known gaps | Agent mode in IDEs, CLI, cloud agent | Scripts and unnamed-file reads (`grep -r .`) without sandbox |
 | Plans | Business, Enterprise | All |
 
 ## Recommended setup
