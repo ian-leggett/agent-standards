@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/drf.instructions.md`](../.github/instructions/drf.instructions.md)
 - **Claude**: [`.claude/rules/drf.md`](../.claude/rules/drf.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Django REST Framework
 

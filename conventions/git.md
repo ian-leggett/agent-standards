@@ -1,5 +1,9 @@
 # Git (example)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ````markdown
 # Git
 

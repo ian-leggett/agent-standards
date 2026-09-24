@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/javascript.instructions.md`](../.github/instructions/javascript.instructions.md)
 - **Claude**: [`.claude/rules/javascript.md`](../.claude/rules/javascript.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # JavaScript
 

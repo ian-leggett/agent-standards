@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/testing.instructions.md`](../.github/instructions/testing.instructions.md)
 - **Claude**: [`.claude/rules/testing.md`](../.claude/rules/testing.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Testing
 
