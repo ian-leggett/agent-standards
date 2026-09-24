@@ -10,6 +10,7 @@ paths:
   - "**/app/**/unauthorized.tsx"
   - "**/app/**/route.ts"
   - "**/middleware.ts"
+  - "**/proxy.ts"
   - "next.config.*"
 ---
 @../../conventions/nextjs.md

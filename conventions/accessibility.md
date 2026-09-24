@@ -11,14 +11,15 @@ Each tool has its own activation file that points to these rules:
 # Accessibility
 
 Baseline is WCAG 2.2 Level AA. Every rule below maps to a Level A or AA success
-criterion — treat a violation the same as a failing test, not a style nit.
+criterion unless marked *(best practice)* or *(AAA)* — treat a violation of the
+rest the same as a failing test, not a style nit.
 
 ## Semantic structure
 
 - Use native HTML elements for their native purpose (`button`, `a`, `nav`,
   `main`, `header`, `footer`, `table`, `ul`/`ol`) before reaching for ARIA —
   "no ARIA is better than bad ARIA." *(4.1.2)*
-- One `<h1>` per page; heading levels don't skip (`h2` → `h4` without an `h3`
+- *(best practice)* One `<h1>` per page; heading levels don't skip (`h2` → `h4` without an `h3`
   is a bug). Headings describe the section that follows, not styling. *(1.3.1, 2.4.6)*
 - Landmark regions (`header`, `nav`, `main`, `footer`, `aside`) appear once
   per page where singular, and are labeled with `aria-label` when there's more
@@ -113,7 +114,7 @@ criterion — treat a violation the same as a failing test, not a style nit.
 
 - Respect `prefers-reduced-motion`: parallax, auto-scrolling, and large
   animated transitions are disabled or substantially reduced when the user
-  has this preference set. *(2.3.3)*
+  has this preference set. *(2.3.3, AAA — recommended)*
 - Content triggered by hover or focus (tooltips, popovers) is dismissible
   without moving the pointer (e.g. `Esc`), stays visible while the pointer is
   over the trigger or the content itself, and doesn't obscure other content

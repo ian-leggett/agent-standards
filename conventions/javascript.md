@@ -45,9 +45,6 @@ when the compiler is already available.
 - Template literals over string concatenation. No `%s`-style formatting.
 - Destructure function parameters for anything with more than ~2 named inputs
   instead of an untyped options blob the reader has to trace to its call sites.
-- No mutable default arguments (`function f(x = [])` creates one shared array
-  under some transpile targets — verify, or just default to `null` and assign
-  inside).
 
 ## Modules & structure
 - One module = one responsibility. Named exports only — no default exports,
