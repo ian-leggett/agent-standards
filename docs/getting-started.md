@@ -1,4 +1,4 @@
-# 🚀 Getting started: GitHub Copilot and Claude Code
+# Getting started: GitHub Copilot and Claude Code
 
 This guide sets up **GitHub Copilot** and **Claude Code** in a project so both
 tools follow the same standards. You write the rules once, in `AGENTS.md` and
@@ -10,22 +10,41 @@ See [Instructions](./instructions.md) for why it is split this way.
 
 ## Quick start: minimum viable setup
 
-Copy these into the root of your repo. This is enough for both tools to pick up
-your standards.
+Copy these into the root of your repo. This is enough for the tool to pick up
+your standards. Follow the table for the tool you use, or both if your team
+uses both. `AGENTS.md` and `conventions/` are shared, so you only copy them once.
+
+After copying, edit the **Project overview** section at the top of `AGENTS.md`.
+It ships with example values (Django, PostgreSQL, SSO), so replace the service
+name, language, framework, database and authentication with your own. Also
+remove the `# Agent/Root Instructions — Example` heading and the code fence
+around the content, so your `AGENTS.md` contains only the rules themselves.
+
+### Claude Code
 
 | Step | Copy from this repo | To your repo | Purpose |
 |------|---------------------|--------------|---------|
 | 1 | `AGENTS.md` | `AGENTS.md` | Root instructions, always active. Edit the project overview first |
 | 2 | `CLAUDE.md` | `CLAUDE.md` | One line, `@AGENTS.md`. Claude Code reads it |
-| 3 | `.github/copilot-instructions.md` | `.github/copilot-instructions.md` | One line linking to `AGENTS.md`. Copilot reads it |
-| 4 | `conventions/` | `conventions/` | The actual rules. **Delete the stacks you don't use** |
-| 5 | `.claude/rules/*` and `.github/instructions/*` | same paths | Scoped rule stubs for the stacks you kept |
-| 6 | `.claude/settings.json` | `.claude/settings.json` | Blocks Claude from reading secret files |
+| 3 | `conventions/` | `conventions/` | The actual rules. **Delete the stacks you don't use** |
+| 4 | `.claude/rules/*` | `.claude/rules/*` | Scoped rule stubs for the stacks you kept |
+| 5 | `.claude/settings.json` | `.claude/settings.json` | Blocks Claude from reading secret files |
 
-Then edit the placeholders in `AGENTS.md` (service name, language, framework,
-database, authentication).
+### GitHub Copilot
+
+| Step | Copy from this repo | To your repo | Purpose |
+|------|---------------------|--------------|---------|
+| 1 | `AGENTS.md` | `AGENTS.md` | Root instructions, always active. Edit the project overview first |
+| 2 | `.github/copilot-instructions.md` | `.github/copilot-instructions.md` | One line linking to `AGENTS.md`. Copilot reads it |
+| 3 | `conventions/` | `conventions/` | The actual rules. **Delete the stacks you don't use** |
+| 4 | `.github/instructions/*` | `.github/instructions/*` | Scoped rule stubs for the stacks you kept |
+
+Copilot has no equivalent of `.claude/settings.json`. Block secret files with
+content exclusion instead. See the [content exclusion guide](./content-exclusion.md).
 
 ## Recommended directory structure
+
+### Claude Code
 
 ```
 your-repo/
@@ -41,37 +60,60 @@ your-repo/
 │   └── ...
 ├── docs/                            # human-facing guides
 │
-├── .claude/                         # Claude Code wiring
+├── .claude/
 │   ├── settings.json                # shared permissions + hooks (committed)
 │   ├── settings.local.json          # personal overrides (gitignored)
-│   ├── rules/
-│   │   └── python.md                # paths: "**/*.py" → @../../conventions/python.md
-│   ├── agents/
-│   │   ├── code-reviewer.md         # subagents
+│   ├── rules/                       # one stub per convention
+│   │   ├── python.md                # paths: "**/*.py" → @../../conventions/python.md
+│   │   ├── django.md
+│   │   ├── security.md
+│   │   └── ...
+│   ├── agents/                      # subagents
+│   │   ├── code-reviewer.md
 │   │   └── accessibility-advisor.md
-│   ├── skills/
-│   │   ├── write-tests/SKILL.md     # on-demand task instructions
+│   ├── skills/                      # on-demand task instructions
+│   │   ├── write-tests/SKILL.md
 │   │   └── pr-description/SKILL.md
 │   └── hooks/
 │       └── post-tool-format.sh
 │
-├── .github/                         # GitHub Copilot wiring
+└── .mcp.json                        # optional: MCP servers
+```
+
+### GitHub Copilot
+
+```
+your-repo/
+├── AGENTS.md                        # root instructions (shared, always loaded)
+├── conventions/                     # shared rules: the only place with real content
+│   ├── python.md
+│   ├── django.md
+│   ├── typescript.md
+│   ├── security.md
+│   ├── testing.md
+│   ├── git.md
+│   └── ...
+├── docs/                            # human-facing guides
+│
+├── .github/
 │   ├── copilot-instructions.md      # link to ../AGENTS.md
 │   ├── pull_request_template.md
-│   ├── instructions/
-│   │   └── python.instructions.md   # applyTo: "**/*.py" → link to ../../conventions/python.md
-│   ├── agents/
-│   │   └── code-reviewer.agent.md   # custom agents
+│   ├── instructions/                # one stub per convention
+│   │   ├── python.instructions.md   # applyTo: "**/*.py" → link to ../../conventions/python.md
+│   │   ├── django.instructions.md
+│   │   ├── security.instructions.md
+│   │   └── ...
+│   ├── agents/                      # custom agents
+│   │   ├── code-reviewer.agent.md
+│   │   └── accessibility-advisor.agent.md
 │   ├── skills/
-│   │   └── write-tests/SKILL.md
-│   ├── prompts/                     # optional: reusable one-shot prompts
-│   │   └── write-tests.prompt.md
+│   │   ├── write-tests/SKILL.md
+│   │   └── pr-description/SKILL.md
 │   └── hooks/
 │       ├── formatting.json          # registers the hook (Copilot has no settings.json)
 │       └── post-tool-format.sh
 │
-├── .mcp.json                        # optional: MCP servers for Claude Code
-└── .vscode/mcp.json                 # optional: MCP servers for Copilot in VS Code
+└── .vscode/mcp.json                 # optional: MCP servers for VS Code
 ```
 
 ## How each tool loads configuration
@@ -87,7 +129,7 @@ your-repo/
 | MCP servers | `.mcp.json` | `.vscode/mcp.json` |
 | Secret guardrails | `permissions.deny` in `.claude/settings.json` | Copilot content exclusion (set in GitHub repo or org settings) |
 
-Scoped rules are the stubs mentioned in step 5. Each is a few lines of
+Scoped rules are the stubs mentioned in the quick start. Each is a few lines of
 frontmatter plus a pointer, so the rule text lives only in `conventions/`.
 Claude Code supports `@` imports. Copilot does not, so its stubs use a
 Markdown link, which Copilot follows in VS Code:
@@ -123,8 +165,8 @@ For adding or removing a stack, see [Instructions](./instructions.md#add-or-remo
    the `chat.useAgentsMdFile` setting so Copilot reads `AGENTS.md` in the local
    agent.
 4. **Add agents and skills** (optional). Copy `.github/agents/` and
-   `.github/skills/`, then edit the placeholder `example-agent` to match
-   your workflow.
+   `.github/skills/`, rename the agent files to `<name>.agent.md`, and edit
+   them to match your workflow.
 5. **Verify.** Open Copilot Chat, ask *"What coding standards apply to this
    repo?"*, and check the reply cites your conventions. The **References**
    list on a reply shows which instruction files were loaded.
@@ -163,15 +205,6 @@ Everything is opt-in per stack. To drop Django and DRF, for example:
 To add a stack that isn't covered, follow
 [Add or remove a stack](./instructions.md#add-or-remove-a-stack).
 
-## Optional: MCP servers
-
-MCP servers give agents access to external tools such as GitHub, Jira or a
-browser.
-
-- **Claude Code:** `claude mcp add ...`, or commit a `.mcp.json` at the repo root.
-- **Copilot (VS Code):** `.vscode/mcp.json`.
-
-Never put tokens in these files. Read them from the environment.
 
 ## Tips
 

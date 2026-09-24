@@ -1,4 +1,4 @@
-# 🛠️ Skills
+# Skills
 
 Skills are reusable packages of instructions for a specific task, such as
 reviewing a PR, writing a migration or running a release. A skill is a folder

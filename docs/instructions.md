@@ -1,4 +1,4 @@
-# 📏 Instructions
+# Instructions
 
 Instructions are the rules agents follow automatically: your standards for
 code style, testing, security and so on. Write them once in `AGENTS.md` and

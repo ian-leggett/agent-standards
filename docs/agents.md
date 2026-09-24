@@ -1,4 +1,4 @@
-# 🧑‍💻 Agents
+# Agents
 
 Agents are specialised AI personas with a defined role, a limited set of tools
 and a fixed workflow. GitHub Copilot calls them **custom agents** and you pick
@@ -105,10 +105,14 @@ You review changes against this repo's standards. You do not edit code.
 
 ## Examples in this repo
 
-- [`.claude/agents/code-reviewer.md`](../.claude/agents/code-reviewer.md): a worked example
-- [`.github/agents/example-agent.agent.md`](../.github/agents/example-agent.agent.md): a placeholder
+- [`.claude/agents/code-reviewer.md`](../.claude/agents/code-reviewer.md) and
+  [`.claude/agents/accessibility-advisor.md`](../.claude/agents/accessibility-advisor.md):
+  Claude Code examples
+- [`.github/agents/code-reviewer.md`](../.github/agents/code-reviewer.md) and
+  [`.github/agents/accessibility-advisor.md`](../.github/agents/accessibility-advisor.md):
+  Copilot examples. Rename them to `<name>.agent.md` when you copy them into your repo
 
-Replace the placeholder description and body with a real role before use.
+Edit the description and body to match your own workflow before use.
 
 ## Further reading
 

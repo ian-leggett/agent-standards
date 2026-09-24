@@ -66,13 +66,6 @@ How to keep secrets and sensitive files out of Copilot's and Claude's context, w
 
 Why a smaller context window matters and how to keep an agent's working memory lean.
 
-## How to use the examples
-
-1. Browse the [Getting Started](docs/getting-started.md) guide to understand the configuration structure
-2. Navigate to the example files that match your project's needs
-3. Copy the raw markdown content into the matching directory in your repository
-4. Edit the examples to fit your specific project context
-
 ## Sources / further reading
 
 - [AI Hero — A Complete Guide to AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md)
