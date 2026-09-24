@@ -1,3 +1,13 @@
+# Next.js (example)
+
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/nextjs.instructions.md`](../.github/instructions/nextjs.instructions.md)
+- **Claude**: [`.claude/rules/nextjs.md`](../.claude/rules/nextjs.md)
+
+```markdown
 # Next.js
 
 Assumes `conventions/react.md` and `conventions/typescript.md` also apply — this file covers
@@ -83,3 +93,4 @@ don't add new routes under `pages/` unless the repo hasn't migrated yet.
   route — don't force a Server Component through a client-only testing shim.
 - Test Server Actions as plain async functions: call with the expected `FormData`/args and assert
   on the mutation + return value; mock the data-access layer, not the framework.
+```

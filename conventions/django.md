@@ -1,7 +1,13 @@
----
-description: Django conventions for this org — models, views, migrations, admin, security.
----
+# Django (example)
 
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/django.instructions.md`](../.github/instructions/django.instructions.md)
+- **Claude**: [`.claude/rules/django.md`](../.claude/rules/django.md)
+
+```markdown
 # Django
 
 Assumes `conventions/python.md` also applies — this file only covers Django-specific rules.
@@ -36,3 +42,4 @@ Assumes `conventions/python.md` also applies — this file only covers Django-sp
 ## Testing
 - `pytest-django` + factory objects (`factory_boy`), not fixtures full of hand-built model instances.
 - Test migrations that alter data, not just schema, with a real before/after assertion.
+```

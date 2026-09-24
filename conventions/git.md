@@ -1,16 +1,19 @@
+# Git (example)
+
+```markdown
 # Git
 
 ## Commit messages — Conventional Commits
 
 Every commit message follows the [Conventional Commits](https://www.conventionalcommits.org/) format:
 
-```
+
 <type>(<optional scope>): <description>
 
 <optional body>
 
 <optional footer(s)>
-```
+
 
 - `type` is one of: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 - `scope` is the area of the codebase affected (e.g. `api`, `auth`, `parser`) — omit it only when the change is truly repo-wide.
@@ -21,7 +24,7 @@ Every commit message follows the [Conventional Commits](https://www.conventional
 
 Examples:
 
-```
+
 fix(auth): reject expired refresh tokens before session lookup
 
 feat(billing)!: require currency on invoice creation
@@ -29,7 +32,7 @@ feat(billing)!: require currency on invoice creation
 BREAKING CHANGE: `Invoice.create` now requires a `currency` field;
 callers relying on the USD default must pass it explicitly.
 Refs: #482
-```
+
 
 ## Branch naming — Conventional Branch
 
@@ -49,3 +52,4 @@ Branch names follow `<type>/<short-description>`, mirroring the commit `type` vo
 
 - Don't mix an unrelated `type` of change into one commit — a refactor and a feature addition are two commits, even on the same branch.
 - Squash-merge or keep history linear per the repo's existing convention (check recent `git log` before assuming) — don't introduce a new merge strategy unilaterally.
+```
