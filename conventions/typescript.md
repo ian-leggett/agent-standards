@@ -1,7 +1,14 @@
----
-description: TypeScript conventions for this org — types, style, structure, errors, testing.
----
+# TypeScript (example)
 
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/typescript.instructions.md`](../.github/instructions/typescript.instructions.md)
+- **Claude**: [`.claude/rules/typescript.md`](../.claude/rules/typescript.md)
+
+
+```markdown
 # TypeScript
 
 ## Tooling
@@ -28,3 +35,4 @@ description: TypeScript conventions for this org — types, style, structure, er
 ## Testing
 - Vitest or Jest (match what's already in the repo). Test behavior through the public API of a module, not internals.
 - Type tests (`expectTypeOf` / `tsd`) for anything whose whole job is its type signature (generic utility types, overloads).
+```

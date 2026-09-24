@@ -1,7 +1,14 @@
----
-description: React conventions for this org — components, state, hooks, performance, testing.
----
+# React (example)
 
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/react.instructions.md`](../.github/instructions/react.instructions.md)
+- **Claude**: [`.claude/rules/react.md`](../.claude/rules/react.md)
+
+
+```markdown
 # React
 
 Assumes `conventions/typescript.md` also applies — this file only covers React-specific rules.
@@ -33,3 +40,4 @@ Assumes `conventions/typescript.md` also applies — this file only covers React
 ## Testing
 - React Testing Library — test what the user sees/does (`getByRole`, `userEvent`), not implementation details (no querying by class name or testing internal state directly).
 - Don't test that a hook was called — test the resulting behavior/output.
+```

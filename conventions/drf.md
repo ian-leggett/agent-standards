@@ -1,3 +1,13 @@
+# Django REST Framework (example)
+
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/drf.instructions.md`](../.github/instructions/drf.instructions.md)
+- **Claude**: [`.claude/rules/drf.md`](../.claude/rules/drf.md)
+
+```markdown
 # Django REST Framework
 
 Assumes `conventions/django.md` also applies — this file only covers DRF-specific rules.
@@ -31,3 +41,4 @@ Assumes `conventions/django.md` also applies — this file only covers DRF-speci
 - `APITestCase`/`APIClient` (or `pytest-django`'s `APIClient` fixture) for endpoint tests — assert on status code and response body shape, not on view internals.
 - Test permission boundaries explicitly: at least one test per endpoint asserting an unauthorized/wrong-tenant request is rejected, not just the happy path.
 - Serializer validation logic gets direct unit tests (`serializer.is_valid()` + `serializer.errors`) separate from the view-level integration test.
+```

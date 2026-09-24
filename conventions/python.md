@@ -1,7 +1,13 @@
----
-description: Python conventions for this org — style, typing, structure, errors, testing, deps.
----
+# Python (example)
 
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/python.instructions.md`](../.github/instructions/python.instructions.md)
+- **Claude**: [`.claude/rules/python.md`](../.claude/rules/python.md)
+
+```markdown
 # Python
 
 ## Tooling
@@ -32,3 +38,4 @@ description: Python conventions for this org — style, typing, structure, error
 - Test file mirrors source path: `src/foo/bar.py` → `tests/foo/test_bar.py`.
 - One assertion concept per test; name tests for the behavior, not the method (`test_returns_empty_list_when_no_matches`, not `test_search_2`).
 - Mock at the boundary (network, filesystem, clock) — don't mock your own business logic.
+```

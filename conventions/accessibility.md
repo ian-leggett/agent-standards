@@ -1,3 +1,13 @@
+# Accessibility (example)
+
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/accessibility.instructions.md`](../.github/instructions/accessibility.instructions.md)
+- **Claude**: [`.claude/rules/accessibility.md`](../.claude/rules/accessibility.md)
+
+```markdown
 # Accessibility
 
 Baseline is WCAG 2.2 Level AA. Every rule below maps to a Level A or AA success
@@ -114,3 +124,4 @@ criterion — treat a violation the same as a failing test, not a style nit.
 - Touch/click targets are at least 24×24 CSS px (or have sufficient spacing)
   unless the target is inline text or a native control with equivalent
   spacing. *(2.5.8)*
+```

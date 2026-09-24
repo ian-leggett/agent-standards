@@ -1,3 +1,13 @@
+# JavaScript (example)
+
+## How this file is activated
+
+Each tool has its own activation file that points to these rules:
+
+- **GitHub Copilot**: [`.github/instructions/javascript.instructions.md`](../.github/instructions/javascript.instructions.md)
+- **Claude**: [`.claude/rules/javascript.md`](../.claude/rules/javascript.md)
+
+```markdown
 # JavaScript
 
 For projects without TypeScript. If the repo has a `tsconfig.json`, use
@@ -75,3 +85,4 @@ when the compiler is already available.
   (`test('returns empty array when no matches')`, not `test('search 2')`).
 - Mock at the boundary (network, filesystem, clock) — don't mock your own
   business logic.
+```
