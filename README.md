@@ -1,4 +1,4 @@
-# 🤖 AI engineering Hub
+# AI engineering Hub
 
 A starter template for AI agent documentation. Use it as the seed for a new
 project's `AGENTS.md`, coding standards, and configuration for Claude Code and
@@ -9,7 +9,16 @@ It's built around **progressive disclosure**: every layer only enters an
 agent's context when it's actually relevant, so a project's always-on
 instructions stay small no matter how many stacks it ends up covering.
 
-## 📚 Guides
+## Why this matters
+
+AI coding tools work best when given clear, project-specific context. A well-configured GitHub Copilot/Claude will:
+
+- Follow your team's coding standards and conventions automatically
+- Produce code that passes your quality gates first time
+- Understand your architecture and make consistent decisions
+- Save time on repetitive tasks like writing tests, ADRs, and documentation
+
+## Guides
 
 ### [Getting Started](docs/getting-started.md)
 
@@ -64,7 +73,7 @@ Why a smaller context window matters and how to keep an agent's working memory l
 3. Copy the raw markdown content into the matching directory in your repository
 4. Edit the examples to fit your specific project context
 
-## 🔗 Sources / further reading
+## Sources / further reading
 
 - [AI Hero — A Complete Guide to AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md)
 - [agents.md — the open AGENTS.md spec](https://agents.md/)

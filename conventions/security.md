@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/security.instructions.md`](../.github/instructions/security.instructions.md)
 - **Claude**: [`.claude/rules/security.md`](../.claude/rules/security.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Security
 

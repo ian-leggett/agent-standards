@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/nextjs.instructions.md`](../.github/instructions/nextjs.instructions.md)
 - **Claude**: [`.claude/rules/nextjs.md`](../.claude/rules/nextjs.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Next.js
 

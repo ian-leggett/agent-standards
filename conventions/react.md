@@ -7,6 +7,9 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/react.instructions.md`](../.github/instructions/react.instructions.md)
 - **Claude**: [`.claude/rules/react.md`](../.claude/rules/react.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
 
 ```markdown
 # React

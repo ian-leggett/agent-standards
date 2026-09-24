@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/python.instructions.md`](../.github/instructions/python.instructions.md)
 - **Claude**: [`.claude/rules/python.md`](../.claude/rules/python.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Python
 

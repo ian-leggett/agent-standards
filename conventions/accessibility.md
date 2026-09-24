@@ -7,6 +7,10 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/accessibility.instructions.md`](../.github/instructions/accessibility.instructions.md)
 - **Claude**: [`.claude/rules/accessibility.md`](../.claude/rules/accessibility.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
+
 ```markdown
 # Accessibility
 

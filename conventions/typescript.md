@@ -7,6 +7,9 @@ Each tool has its own activation file that points to these rules:
 - **GitHub Copilot**: [`.github/instructions/typescript.instructions.md`](../.github/instructions/typescript.instructions.md)
 - **Claude**: [`.claude/rules/typescript.md`](../.claude/rules/typescript.md)
 
+## Example file contents
+
+The content below goes into your conventions file:
 
 ```markdown
 # TypeScript
