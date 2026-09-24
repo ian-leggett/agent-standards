@@ -73,7 +73,7 @@ your-repo/
 │   │   └── accessibility-advisor.md
 │   ├── skills/                      # on-demand task instructions
 │   │   ├── write-tests/SKILL.md
-│   │   └── pr-description/SKILL.md
+│   │   └── create-pr/SKILL.md
 │   └── hooks/
 │       └── post-tool-format.sh
 │
@@ -108,7 +108,7 @@ your-repo/
 │   │   └── accessibility-advisor.agent.md
 │   ├── skills/
 │   │   ├── write-tests/SKILL.md
-│   │   └── pr-description/SKILL.md
+│   │   └── create-pr/SKILL.md
 │   └── hooks/
 │       ├── formatting.json          # registers the hook (Copilot has no settings.json)
 │       └── post-tool-format.sh

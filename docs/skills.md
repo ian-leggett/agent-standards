@@ -87,8 +87,8 @@ description: Reviews changed code against the repo's conventions. Use when the u
 ## Examples in this repo
 
 - [`.claude/skills/write-tests/SKILL.md`](../.claude/skills/write-tests/SKILL.md): writes tests that follow `conventions/testing.md`
-- [`.claude/skills/pr-description/SKILL.md`](../.claude/skills/pr-description/SKILL.md): drafts a PR description from the branch diff
-- [`.github/skills/write-tests/SKILL.md`](../.github/skills/write-tests/SKILL.md) and [`.github/skills/pr-description/SKILL.md`](../.github/skills/pr-description/SKILL.md): the Copilot copies
+- [`.claude/skills/create-pr/SKILL.md`](../.claude/skills/create-pr/SKILL.md): drafts a PR description from the branch diff and opens the PR after confirmation
+- [`.github/skills/write-tests/SKILL.md`](../.github/skills/write-tests/SKILL.md) and [`.github/skills/create-pr/SKILL.md`](../.github/skills/create-pr/SKILL.md): the Copilot copies
 
 ## Further reading
 
