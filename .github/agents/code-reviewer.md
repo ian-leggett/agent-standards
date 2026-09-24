@@ -10,8 +10,6 @@ The content below goes into your agent file:
 ---
 name: code-reviewer
 description: Reviews changed code against the repo's conventions. Use after finishing a change and before opening a PR.
-tools: Read, Grep, Glob, Bash
-model: inherit
 ---
 
 # Code reviewer
