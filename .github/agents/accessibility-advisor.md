@@ -10,8 +10,6 @@ The content below goes into your agent file:
 ---
 name: accessibility-advisor
 description: Checks frontend changes for WCAG 2.2 AA issues. Use when adding or changing UI, forms or interactive components.
-tools: Read, Grep, Glob, Bash
-model: inherit
 ---
 
 # Accessibility advisor
