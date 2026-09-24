@@ -42,6 +42,8 @@ Follow the [Python conventions](../../conventions/python.md).
 When an agent works on a `.py` file, the Python convention enters its context.
 Otherwise it stays out, which keeps the always-on context small.
 
+Edit `conventions/`, not the stubs. Duplicated rules drift.
+
 ## Progressive disclosure
 
 Every token of instructions competes with the code and the task for space in the
@@ -66,13 +68,15 @@ reads it when relevant, rather than forcing a glob that loads it every time.
 
 ## Writing good instructions
 
-- **Keep `AGENTS.md` short.** If only some tasks need a rule, put it in a
-  convention.
-- **Use imperatives with a reason.** "Never use `fields = '__all__'` so new
+- **Keep every file short.** Each line costs context, in `AGENTS.md` and in
+  conventions alike. If a rule only matters for some tasks, scope it; if it
+  doesn't change what the agent does, cut it.
+- **Write imperatives with a reason.** "Never use `fields = '__all__'` so new
   model fields aren't exposed by accident" beats "be careful with serializers".
-- **Edit `conventions/`, not the stubs.** Duplicated rules drift.
-- **Stay specific and checkable.** A reviewer should be able to tell whether a
-  rule was followed.
+- **Make rules checkable.** A reviewer should be able to tell whether a rule
+  was followed. Avoid "write clean code"; prefer "functions have type hints".
+- **Don't restate what tooling enforces.** If `ruff` or `eslint` catches it,
+  point to the tool instead of listing the rule.
 - **Fix rules from real results.** When an agent gets something wrong, ask why,
   then sharpen the rule or add an example.
 
