@@ -42,6 +42,28 @@ Follow the [Python conventions](../../conventions/python.md).
 When an agent works on a `.py` file, the Python convention enters its context.
 Otherwise it stays out, which keeps the always-on context small.
 
+## Progressive disclosure
+
+Every token of instructions competes with the code and the task for space in the
+context window, and a long always-on file dilutes the rules that matter. So we
+load instructions in stages: `AGENTS.md` carries only what every task needs, and
+each convention is disclosed only when the agent is doing work it applies to.
+
+The glob in a stub's frontmatter (`paths:` for Claude Code, `applyTo:` for
+Copilot) is the trigger for that disclosure. We use a file glob because:
+
+- **It's deterministic.** The tool loads the rule when a matching file is
+  touched. It doesn't depend on the agent deciding to go and read a convention.
+- **File type is a good proxy for relevance.** Touching a `.py` file means the
+  Python rules apply, and touching a `.tsx` file means React and TypeScript do.
+- **It keeps the cost proportional.** A docs-only change never pays for the
+  Django, DRF or Next.js rules.
+
+Keep globs as narrow as the rule allows (`**/*.py`, not `**/*`). A glob that
+matches everything is just a bigger `AGENTS.md`. For topics that don't map to a
+file type, such as security, list the convention in `AGENTS.md` so the agent
+reads it when relevant, rather than forcing a glob that loads it every time.
+
 ## Writing good instructions
 
 - **Keep `AGENTS.md` short.** If only some tasks need a rule, put it in a
