@@ -49,6 +49,10 @@ Reusable procedures that load on demand when a task matches, following the open 
 
 How Claude Code and GitHub Copilot split instructions and settings across enterprise, organisation, project and local scopes, and what belongs at each level.
 
+### [Content exclusion](docs/content-exclusion.md)
+
+How to keep secrets and sensitive files out of Copilot's and Claude's context, what each mechanism actually enforces, and where the gaps are.
+
 ### [Context window](docs/context-window.md)
 
 Why a smaller context window matters and how to keep an agent's working memory lean.
