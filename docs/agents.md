@@ -1,113 +1,118 @@
-# 🤖 Creating an agent: how and when to use one
+# 🧑‍💻 Agents
 
-A subagent is a separate context window with its own system prompt and its
-own (often narrower) tool access, dispatched by a main agent to do one job
-and report back. Where a [Skill](./agent-skills.md) hands the *current*
-agent a procedure to follow, a subagent hands the work to a *different*
-agent entirely — one whose context doesn't fill up with the main
-conversation's history, and whose tool access can be locked down to just
-what the job needs.
+Agents are specialised AI personas with a defined role, a limited set of tools
+and a fixed workflow. GitHub Copilot calls them **custom agents** and you pick
+one from the agent picker in Copilot Chat. Claude Code calls them
+**subagents**. Claude delegates to one when the task matches its description,
+and the subagent works in its own context window and returns a summary.
 
-This repo includes a placeholder example at
-[`.claude/agents/example-agent.md`](../.claude/agents/example-agent.md)
-(mirrored for Copilot at
-[`.github/agents/example-agent.agent.md`](../.github/agents/example-agent.agent.md))
-showing the required shape.
+Use an agent when a task has a clear role and you want the same behaviour every
+time, such as reviewing code, writing tests or triaging bugs.
 
-## Anatomy of an agent
+## Agents, instructions and skills
 
-An agent is a single Markdown file with YAML frontmatter:
+| | Instructions | Agents | Skills |
+|---|---|---|---|
+| Purpose | Rules to follow | A role to adopt | A procedure to run |
+| Loaded | Always, or by file glob | When picked or delegated to | On demand, when relevant |
+| Answers | "What are our standards?" | "Who does this job?" | "How is this task done?" |
+
+Agents don't replace your standards. They point at them. See
+[Instructions](./instructions.md) and [Skills](./skills.md).
+
+## File format and location
+
+| | Claude Code | GitHub Copilot |
+|---|---|---|
+| Location | `.claude/agents/<name>.md` | `.github/agents/<name>.agent.md` |
+| Picked by | Claude, from the `description` | You, from the agent picker |
+| Tools | `tools:` comma-separated list | `tools:` list of tool sets |
+
+The body is the same on both tools. Only the frontmatter differs.
 
 ```markdown
+<!-- .claude/agents/code-reviewer.md -->
 ---
-name: example-agent
-description: Placeholder example subagent. Replace this description with a
-  specific trigger condition so Claude knows when to delegate to it (e.g.
-  "Use for X task").
+name: code-reviewer
+description: Reviews changed code against the repo's conventions. Use after finishing a change and before opening a PR.
 tools: Read, Grep, Glob
 model: inherit
 ---
-
-# Example agent
-
-## Responsibilities
-1. ...
 ```
 
-- **`name`** — a short, kebab-case identifier, used to invoke the agent.
-- **`description`** — the field the main agent matches against to decide
-  whether to delegate. Same rule as a Skill's description: state plainly
-  *when* to use it, not just what it does.
-- **`tools`** — the allowlist of tools this agent can call. Narrower is
-  better — an agent that only reads and searches can't accidentally edit
-  or run destructive commands.
-- **`model`** — which model runs the agent (`inherit` to match the parent,
-  or pin a specific one for cost/quality tradeoffs).
-- **Body** — the system prompt: the one job this agent exists to do, the
-  steps it follows, and what it returns.
+```markdown
+<!-- .github/agents/code-reviewer.agent.md -->
+---
+name: code-reviewer
+description: "Reviews changed code against the repo's conventions before a PR."
+tools: ["read", "search", "execute"]
+---
+```
 
-## Why agents exist: isolated context, not just delegation
+## Anatomy of a good agent
 
-The point of a subagent isn't just "getting another task done" — it's
-keeping the *main* agent's context window small (see
-[Managing the context window](./context-window.md)):
+Give the body four sections:
 
-- **Exploratory or noisy work stays out of the main context.** A wide
-  codebase search, a long research task, or a multi-step investigation
-  produces a lot of intermediate tool output. Run it in a subagent and
-  only the distilled result comes back — the raw noise never enters the
-  main conversation.
-- **Tool access can be scoped down.** An agent whose job is "find where X
-  is defined" only needs `Read`/`Grep`/`Glob` — it doesn't need `Edit` or
-  `Bash`. A narrower tool list is both safer and easier for the agent
-  itself to reason about.
-- **Work can run in parallel.** Independent subagents can be dispatched at
-  the same time (e.g. one reviewing for correctness, one for style) rather
-  than working through each concern serially in one context.
+1. **Role.** One sentence on who the agent is and what it is expert in.
+2. **Workflow.** Numbered steps it follows, ending with what it returns.
+3. **Rules.** Hard dos and don'ts for this role.
+4. **References.** Links to the conventions it applies, for example
+   `conventions/security.md`. Link them and don't restate them.
 
-## When to use an agent (vs. a Skill or doing it inline)
+Also list what is **out of scope**, so the agent stays narrow.
 
-| Approach          | When...                                                                 |
-|--------------------|--------------------------------------------------------------------------|
-| Do it inline        | The task is small, or its intermediate output is itself useful to keep in context. |
-| A Skill              | The *current* agent needs a repeatable procedure or checklist — no context isolation needed. |
-| A subagent           | The task is exploratory, noisy, parallelizable, or benefits from a restricted tool set — and only the final result matters to the caller. |
+```markdown
+# Code reviewer
 
-Good candidates for a subagent: "search the codebase for every caller of
-this function," "review this diff for security issues," "research this
-library's API and summarize it," "run this multi-step task in the
-background while I keep working." Anything where you'd otherwise dump a
-pile of tool output into the main conversation just to extract one
-conclusion from it.
+## Role
+You review changes against this repo's standards. You do not edit code.
 
-Poor candidates: a task so small that spinning up a subagent costs more
-(in round-trip latency and re-derived context) than doing it directly, or
-a task whose intermediate steps the main agent genuinely needs to see and
-react to as it goes.
+## Workflow
+1. Run `git diff main...HEAD` to find the changed files.
+2. Read the conventions that match each file type.
+3. Report each violation with `file:line`, the rule broken and a suggested fix.
 
-## Writing a good agent
+## Rules
+- Report only violations of a written convention, not personal preference.
+- Flag security issues first.
 
-- **One job, stated plainly in the description.** The description is what
-  gets matched against — lead with the trigger ("use when the user asks to
-  review a branch") the same way you would for a Skill.
-- **Scope `tools` to the job.** Don't hand out `Edit`/`Bash`/`Write` to an
-  agent whose entire purpose is read-only research.
-- **Give it a self-contained brief when dispatching it.** A fresh agent has
-  none of the calling conversation's context — the dispatch prompt needs to
-  explain what to do and why, not just reference "the thing we discussed."
-- **State what it returns.** A subagent's output is a summary handed back
-  to the caller, not a live transcript — be explicit about what shape that
-  summary should take.
-- **Keep it narrow.** An agent that tries to cover several unrelated jobs
-  is as hard to reason about as a catch-all Skill or a catch-all
-  `AGENTS.md` — split it instead.
+## References
+- `conventions/security.md`
+- `conventions/testing.md`
 
-## Where agents live
+## Out of scope
+- Making changes. Report findings only.
+```
 
-- Claude Code: `.claude/agents/<name>.md`
-- GitHub Copilot: `.github/agents/<name>.agent.md`
+## Best practices
 
-Keep both in sync the same way this repo keeps `AGENTS.md` as the single
-source of truth for project instructions — write the responsibilities once,
-and mirror them into whichever tool-specific file format your assistants
-read from.
+- **One job per agent.** A narrow agent is predictable. A broad one is a second
+  general-purpose assistant.
+- **Write the `description` as a trigger.** Say when to use it. Claude uses it
+  to decide whether to delegate, and Copilot shows it in the picker, so keep it
+  short.
+- **Grant least privilege.** A read-only reviewer gets `Read, Grep, Glob` and no
+  edit tools. Add `Bash` only if it needs read-only commands such as `git diff`,
+  and say so in its rules.
+- **Prefer tool sets on Copilot.** Use `read`, `search`, `edit`, `execute` and
+  `web` over long lists of individual tools.
+- **Reference, don't repeat.** Point at `conventions/` so rules live in one
+  place.
+- **Keep the two copies matched.** Agents are written per tool, so review the
+  Claude and Copilot versions together.
+- **Iterate on real output.** When an agent gets something wrong, tighten the
+  workflow or add an example.
+
+## Examples in this repo
+
+- [`.claude/agents/code-reviewer.md`](../.claude/agents/code-reviewer.md): a worked example
+- [`.github/agents/example-agent.agent.md`](../.github/agents/example-agent.agent.md): a placeholder
+
+Replace the placeholder description and body with a real role before use.
+
+## Further reading
+
+- [Agent Skills open standard](https://github.com/agentskills/agentskills)
+- [Awesome GitHub Copilot: community agents, skills and instructions](https://github.com/github/awesome-copilot)
+- [DEFRA AI config examples: agents](https://github.com/DEFRA/defra-ai-config-examples/blob/main/pages/agents/index.md)
+- [Claude Code subagents](https://code.claude.com/docs/en/sub-agents)

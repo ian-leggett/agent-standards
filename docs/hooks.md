@@ -101,8 +101,10 @@ a one-off check that doesn't recur across sessions.
   loop — a slow or flaky hook is a tax on every matching event.
 - **Decide: report or gate.** A formatting hook should never fail the tool
   call (exit `0` always) — formatting is a nice-to-have. A safety hook
-  (blocking a destructive command) should exit non-zero / return
-  `"continue": false` to actually stop the action. Don't accidentally
+  (blocking a destructive command) must be a `PreToolUse` hook that exits
+  `2` to block the call. In Claude Code, exit `1` is a non-blocking error and
+  the action still runs. `PostToolUse` hooks can't block, because the tool has
+  already run. Don't accidentally
   write a gate that silently no-ops, or a reporter that blocks work.
 - **Scope the matcher tightly.** Don't run a formatter on every tool call
   when it only needs to fire on `Write`/`Edit`; don't run it on every file
@@ -121,8 +123,10 @@ a one-off check that doesn't recur across sessions.
 
 - Claude Code: script in `.claude/hooks/`, registered under `"hooks"` in
   `.claude/settings.json`.
-- GitHub Copilot (VS Code agent mode): script in `.github/hooks/`,
+- GitHub Copilot (CLI and cloud agent): script in `.github/hooks/`,
   registered in a config file such as `.github/hooks/formatting.json`.
+  This `version: 1` format is documented for the Copilot CLI and cloud
+  agent. Check VS Code's docs before relying on it there.
 
 Keep both in sync the same way this repo keeps `AGENTS.md` as the single
 source of truth for project instructions — write the behavior once, and

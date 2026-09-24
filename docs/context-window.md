@@ -35,7 +35,7 @@ not just under the hard limit. "Fits" is not the same as "efficient."
   (`AGENTS.md`/`CLAUDE.md`) short, and link out to detail files
   (`conventions/*.md`, skills) that only get pulled into context when
   they're actually relevant to the task at hand. This repo is built around
-  exactly that pattern — see [What is an AGENTS.md file?](./agents-md.md).
+  exactly that pattern — see [Instructions](./instructions.md).
 - **Summarize instead of forwarding raw output.** When a subagent, search,
   or tool call produces a lot of output, extract the few facts that matter
   rather than passing the whole result forward.
@@ -60,9 +60,11 @@ Skills and MCP servers aren't free just because they're not files you opened
 yourself — both add to the context window before the agent does anything
 useful.
 
-- **MCP tool definitions load up front.** Every connected MCP server
+- **MCP tool definitions can load up front.** A connected MCP server
   registers its tool schemas (names, descriptions, parameters) into context
-  at session start, whether or not any of those tools get called. A handful
+  at session start, whether or not any of those tools get called. Some tools,
+  Claude Code among them, can defer schemas until needed, but names and
+  descriptions still cost context. A handful
   of MCP servers can add up to a meaningful chunk of the window before the
   first user turn — connect only the servers a given task actually needs, not
   every one available.
